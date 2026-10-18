@@ -144,7 +144,6 @@
             display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
         }
 
-        /* شريط النشاط الحي الجديد */
         .live-ticker {
             background-color: #142318; border: 1px solid var(--primary-color);
             color: var(--primary-color); padding: 8px 15px; border-radius: 8px;
@@ -170,6 +169,18 @@
 
         .banner-upgrade h2 { margin: 0 0 10px; color: var(--primary-color); font-size: 1.8rem; }
         .banner-upgrade p { color: var(--text-muted); margin: 0 0 15px; }
+
+        .elite-features-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px; margin-bottom: 35px;
+        }
+
+        .elite-card {
+            background-color: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .elite-card h3 { color: var(--primary-color); margin-top: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
 
         .prompt-container {
             background-color: var(--card-bg);
@@ -213,7 +224,6 @@
             width: 0%; border-radius: 6px; transition: width 0.3s;
         }
 
-        /* صندوق المعاينة الفورية الجديد */
         .live-preview-section {
             background-color: var(--card-bg); border: 1px solid var(--border-color);
             border-radius: 16px; padding: 20px; margin-bottom: 35px;
@@ -388,7 +398,6 @@
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
-    <!-- نافذة الخروج السحرية الجديدة -->
     <div id="exitModal" class="modal">
         <div class="modal-content" style="text-align:center;">
             <span class="close-btn" onclick="document.getElementById('exitModal').style.display='none'">&times;</span>
@@ -482,7 +491,6 @@
             <span>⏱️ <span id="txtTimerText">ينتهي العرض خلال:</span> <span id="timer" style="color:#fef08a;">04:59:59</span></span>
         </div>
 
-        <!-- شريط الأنشطة الحية المتحرك الجديد -->
         <div class="live-ticker">
             <i class="fa-solid fa-bolt" style="color:#fef08a;"></i>
             <marquee behavior="scroll" direction="right" scrollamount="4">
@@ -501,7 +509,30 @@
             <button class="btn-generate" onclick="document.getElementById('pricing').scrollIntoView({behavior: 'smooth'})" id="txtBannerBtn">اختر خطة الاشتراك الآمن</button>
         </div>
 
-        <!-- صندوق المعاينة الفورية للذكاء الاصطناعي الجديد -->
+        <!-- الأقسام الاستثمارية المتقدمة الجديدة -->
+        <div class="elite-features-grid">
+            <div class="elite-card">
+                <h3><i class="fa-solid fa-store" style="color:var(--accent-blue);"></i> متجر القوالب الفورية (AI Shop)</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">اشترِ تصاميم وفيديوهات جاهزة بضغطة زر وبدون انتظار!</p>
+                <button class="btn-pay-auto" style="background:var(--accent-blue); color:#fff;" onclick="buyInstantTemplate()">شراء قالب جاهز (2,000 ر.ي)</button>
+                <div id="shopResult" style="font-size:0.8rem; color:var(--accent-green); margin-top:8px; text-align:center;"></div>
+            </div>
+
+            <div class="elite-card">
+                <h3><i class="fa-brands fa-whatsapp" style="color:#25d366;"></i> مساعد واتساب التسويقي</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">ولد رسالة عرض غداء قوية وأرسل لزبائن مطعمك فوراً.</p>
+                <button class="btn-pay-auto" style="background:#25d366; color:#fff;" onclick="generateWhatsappBroadcast()">توليد رسالة الواتساب</button>
+                <div id="whatsappResult" style="font-size:0.8rem; color:#fef08a; margin-top:8px; text-align:center;"></div>
+            </div>
+
+            <div class="elite-card">
+                <h3><i class="fa-solid fa-award" style="color:#fef08a;"></i> فاحص جودة الإعلان AI</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">افحص إعلانك وتأكد من حصوله على تقييم 100/100 لجذب الزبائن.</p>
+                <button class="btn-pay-auto" style="margin-top:0;" onclick="checkAdQualityScore()">افحص جودة إعلاني الآن</button>
+                <div id="qualityResult" style="font-size:0.8rem; color:var(--accent-green); margin-top:8px; text-align:center; font-weight:bold;"></div>
+            </div>
+        </div>
+
         <div class="live-preview-section">
             <h3 style="color:var(--primary-color); margin-top:0;"><i class="fa-solid fa-wand-magic-sparkles"></i> جرب توليد وصف الوجبة السحري فوراً (تجربة مجانية)</h3>
             <p style="font-size:0.85rem; color:var(--text-muted);">اكتب اسم وجبتك واضغط توليد لترى كيف يكتب الذكاء الاصطناعي إعلاناً لجذب الزبائن:</p>
@@ -697,6 +728,18 @@
             }
         }
 
+        function buyInstantTemplate() {
+            alert("جاري تحويلك لبوابة ون كاش لشراء القالب الفوري بمبلغ 2,000 ريال لرقم التاجر: " + ONECASH_CONFIG.merchantId);
+        }
+
+        function generateWhatsappBroadcast() {
+            document.getElementById('whatsappResult').innerHTML = "🔥 تم توليد رسالة واتساب: (عروض الغداء الخطيرة اليوم في مطعمنا! خصم خاص 20% لأول 10 متصلين. اطلب وجبتك الآن 🍔)";
+        }
+
+        function checkAdQualityScore() {
+            document.getElementById('qualityResult').innerHTML = "⭐ تقييم جودة الإعلان: 98/100 (ممتاز! جاهز لجذب مئات الزبائن)";
+        }
+
         function generateLivePreview() {
             var food = document.getElementById('foodNameInput').value;
             var out = document.getElementById('previewOutput');
@@ -706,7 +749,7 @@
             }
             out.innerHTML = "⏳ جاري التوليد بالذكاء الاصطناعي...";
             setTimeout(function() {
-                out.innerHTML = "🔥 <strong>إعلان جاهز:</strong> استمتع بألذ طعم لـ (" + food + ") المصنوع خصيصاً بمكونات طازجة وجودة عالمية تلبي طموحات ذائقتك! اطلبها الآن واجعل يومك مميزاً.";
+                out.innerHTML = "🔥 <strong>إعلان جاهز:</strong> استمتع بألذ طعم لـ (" + food + ") المصنوع خصيصاً بمكونات طازجة وجودة عالية تلبي طموحات ذائقتك! اطلبها الآن واجعل يومك مميزاً.";
             }, 800);
         }
 

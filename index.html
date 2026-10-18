@@ -43,6 +43,7 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
+        /* الهيدر العلوي للجوال لضمان ظهور زر القائمة بشكل ممتاز */
         .mobile-header {
             display: none;
             position: fixed;
@@ -53,20 +54,21 @@
             padding: 0 20px;
             align-items: center;
             justify-content: space-between;
-            z-index: 200;
+            z-index: 1000;
         }
 
         .menu-toggle-btn {
             background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--primary-color);
             color: var(--primary-color);
             padding: 8px 16px;
             border-radius: 10px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 8px;
+            font-weight: bold;
         }
 
         .sidebar {
@@ -80,8 +82,13 @@
             box-sizing: border-box;
             position: fixed;
             top: 0; bottom: 0; right: 0;
-            z-index: 300;
+            z-index: 1100;
             transition: transform 0.3s ease;
+            transform: translateX(100%);
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
         }
 
         .brand-logo {
@@ -170,7 +177,7 @@
             border-radius: 20px; padding: 40px; text-align: center;
             margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
-        .hero-section h1 { margin: 0 0 12px; color: var(--primary-color); font-size: 2.2rem; }
+        .hero-section h2 { margin: 0 0 12px; color: var(--primary-color); font-size: 2.2rem; }
         .hero-section p { color: var(--text-muted); margin: 0 0 25px; font-size: 1.1rem; line-height: 1.6; }
 
         .services-grid {
@@ -186,7 +193,7 @@
         .service-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
         .service-card h3 { color: var(--primary-color); margin-top: 0; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
 
-        /* صندوق أوامر جيميني المنظم والراقي */
+        /* صندوق أوامر جيميني الملكي المتطور (كتابة + صوت + صور) في الوسط */
         .gemini-prompt-box {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -371,7 +378,7 @@
 
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.85); z-index: 1000; justify-content: center; align-items: center;
+            background-color: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center;
         }
         .modal-content {
             background-color: var(--card-bg); padding: 35px; border-radius: 20px;
@@ -388,7 +395,7 @@
 
         .sidebar-overlay {
             display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0,0,0,0.7); z-index: 250;
+            background-color: rgba(0,0,0,0.7); z-index: 1050;
         }
 
         footer {
@@ -399,11 +406,7 @@
 
         @media (max-width: 768px) {
             .mobile-header { display: flex; }
-            .sidebar { transform: translateX(105%); }
-            .sidebar.active { transform: translateX(0); }
-            .sidebar-overlay.active { display: block; }
             .main-content { margin-right: 0; padding: 85px 20px 40px 20px; }
-            .top-banner { flex-direction: column; gap: 12px; text-align: center; }
         }
     </style>
 </head>
@@ -422,6 +425,7 @@
         </div>
     </div>
 
+    <!-- هيدر الموبايل مع زر القائمة (☰) الواضح -->
     <div class="mobile-header">
         <div class="brand-logo" style="margin-bottom:0; font-size:1.1rem;">
             <i class="fa-solid fa-wand-magic-sparkles"></i> استوديو داهم AI
@@ -524,7 +528,6 @@
             <button class="btn-generate" onclick="document.getElementById('pricing').scrollIntoView({behavior: 'smooth'})" id="txtBannerBtn" style="padding: 12px 30px; border-radius: 12px; font-weight: bold; background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); color: #000; border: none; cursor: pointer; font-size: 1rem;">اختر خطة الاشتراك الآمن</button>
         </div>
 
-        <!-- الأقسام الاستثمارية المنسقة بهدوء -->
         <div class="services-grid">
             <div class="service-card">
                 <h3><i class="fa-solid fa-store" style="color:var(--accent-blue);"></i> متجر القوالب الفورية (AI Shop)</h3>
@@ -548,7 +551,7 @@
             </div>
         </div>
 
-        <!-- 🌟 صندوق إدخال الأوامر المطور (Gemini-Style) -->
+        <!-- 🌟 صندوق أوامر جيميني المتطور (صوت + كتابة + صور) في الوسط -->
         <div class="gemini-prompt-box">
             <textarea id="promptText" class="gemini-textarea" placeholder="اكتب وصف إعلانك المطلوب أو اضغط زر الميكروفون للتحدث الصوتي (مثال: صمم فيديو سينمائي مذهل لوجبة البرجر المقرمش)..."></textarea>
             <div class="gemini-toolbar">
@@ -609,7 +612,6 @@
             </div>
         </div>
 
-        <!-- 🌟 قسم الاشتراكات المنظم والفاخر -->
         <div class="pricing-section" id="pricing">
             <h2 class="section-title" id="txtPriceTitle" style="margin-top:0;">خطط الاشتراكات والتفعيل المباشر</h2>
             <p style="text-align:center; color:var(--text-muted); margin-bottom:35px;" id="txtPriceSub">اختر الخطة وسيقوم نظام ون كاش الآلي بتفعيل حسابك فور إتمام التحويل بكل أمان:</p>
@@ -691,7 +693,6 @@
             </div>
         </div>
 
-        <!-- حسابات التاجر الرسمية ون كاش -->
         <div class="payment-box">
             <h3 style="color:var(--text-main); margin-top:0; font-size:1.6rem;">حسابات التاجر الرسمية والنسخ السريع</h3>
             <p style="color:var(--text-muted); font-size:0.95rem;">يمكنك نسخ أرقام الحسابات المعتمدة مباشرة:</p>

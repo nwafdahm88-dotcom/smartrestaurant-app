@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dahm AI Ads Studio | استوديو داهم لتصميم الإعلانات بالذكاء الاصطناعي</title>
-    <meta name="description" content="استوديو داهم المتطور لتوليد الفيديوهات والتصاميم الإعلانية باستخدام الذكاء الاصطناعي للمطاعم والمحلات">
+    <meta name="description" content="استوديو داهم المتطور لتوليد الفيديوهات والتصاميم الإعلانية باستخدام الذكاء الاصطناعي للمطاعم والمحلات التجارية">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
@@ -41,6 +41,7 @@
             display: flex;
             min-height: 100vh;
             transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
         }
 
         /* -------------------------------------------------- */
@@ -55,7 +56,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 25px;
+            padding: 0 20px;
             z-index: 1000;
         }
 
@@ -69,9 +70,9 @@
             background: var(--card-bg);
             border: 1px solid var(--primary-color);
             color: var(--primary-color);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             cursor: pointer;
-            padding: 9px 16px;
+            padding: 8px 14px;
             border-radius: 12px;
             transition: 0.2s;
             display: flex;
@@ -83,34 +84,42 @@
         .menu-hamburger:hover { opacity: 0.9; transform: scale(1.02); }
 
         .app-title-badge {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             font-weight: bold;
             color: var(--primary-color);
             display: flex;
             align-items: center;
             gap: 10px;
-            text-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
         }
 
         .header-right-group {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .control-btn {
-            background: var(--card-bg); border: 1px solid var(--border-color);
-            color: var(--text-main); padding: 8px 16px; border-radius: 20px;
-            cursor: pointer; font-size: 0.85rem; font-weight: bold; display: flex; align-items: center; gap: 8px;
+            background: var(--card-bg); 
+            border: 1px solid var(--border-color);
+            color: var(--text-main); 
+            padding: 8px 14px; 
+            border-radius: 20px;
+            cursor: pointer; 
+            font-size: 0.85rem; 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px;
             transition: 0.2s;
         }
         .control-btn:hover { border-color: var(--primary-color); color: var(--primary-color); }
 
         /* -------------------------------------------------- */
-        /* القائمة الجانبية المخفية تماماً (Off-Canvas)       */
+        /* 🎯 القائمة الجانبية (مخفية تماماً جهة اليمين حصرياً) */
         /* -------------------------------------------------- */
         .sidebar {
-            width: 310px;
+            width: 280px;
+            max-width: 80vw;
             background-color: var(--sidebar-bg);
             border-left: 1px solid var(--border-color);
             display: flex;
@@ -120,102 +129,171 @@
             box-sizing: border-box;
             position: fixed;
             top: 0; bottom: 0; right: 0;
-            z-index: 1200;
-            transition: transform 0.3s ease;
-            transform: translateX(100%);
-            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            z-index: 2000;
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%) !important; /* إخفاء تام خارج الشاشة يميناً */
+            box-shadow: -10px 0 30px rgba(0,0,0,0.8);
         }
-        .sidebar.active { transform: translateX(0); }
+
+        .sidebar.active { 
+            transform: translateX(0) !important; 
+        }
 
         .sidebar-overlay {
-            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0,0,0,0.75); z-index: 1100;
+            display: none; 
+            position: fixed; 
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.75); 
+            z-index: 1900;
             backdrop-filter: blur(4px);
         }
         .sidebar-overlay.active { display: block; }
 
         .brand-logo {
-            font-size: 1.3rem; font-weight: bold; color: var(--primary-color);
-            display: flex; align-items: center; gap: 12px; margin-bottom: 30px;
+            font-size: 1.25rem; 
+            font-weight: bold; 
+            color: var(--primary-color);
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            margin-bottom: 30px;
         }
 
         .menu-group { margin-bottom: 25px; }
-        .menu-title { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 10px; padding-right: 10px; letter-spacing: 1px; }
+        .menu-title { 
+            font-size: 0.75rem; 
+            color: var(--text-muted); 
+            text-transform: uppercase; 
+            margin-bottom: 10px; 
+            padding-right: 10px; 
+            letter-spacing: 1px; 
+        }
         
         .menu-item {
-            display: flex; align-items: center; gap: 14px;
-            padding: 12px 14px; color: var(--text-main);
-            text-decoration: none; border-radius: 12px; font-size: 0.95rem;
-            transition: 0.2s; margin-bottom: 6px; cursor: pointer;
+            display: flex; 
+            align-items: center; 
+            gap: 14px;
+            padding: 12px 14px; 
+            color: var(--text-main);
+            text-decoration: none; 
+            border-radius: 12px; 
+            font-size: 0.95rem;
+            transition: 0.2s; 
+            margin-bottom: 6px; 
+            cursor: pointer;
         }
-        .menu-item:hover, .menu-item.active { background-color: var(--card-bg); color: var(--primary-color); border: 1px solid var(--border-color); }
+        .menu-item:hover, .menu-item.active { 
+            background-color: var(--card-bg); 
+            color: var(--primary-color); 
+            border: 1px solid var(--border-color); 
+        }
 
         .user-profile {
             background-color: var(--card-bg);
-            padding: 15px; border-radius: 14px;
+            padding: 15px; 
+            border-radius: 14px;
             border: 1px solid var(--border-color);
-            display: flex; align-items: center; gap: 12px; font-size: 0.85rem;
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            font-size: 0.85rem;
             cursor: pointer;
         }
 
         .user-avatar {
-            width: 42px; height: 42px;
+            width: 40px; height: 40px;
             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            color: #000; font-weight: bold; font-size: 1.1rem;
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            color: #000; 
+            font-weight: bold; 
+            font-size: 1.1rem;
         }
 
         /* -------------------------------------------------- */
-        /* منطقة المحتوى الرئيسية                            */
+        /* منطقة المحتوى الرئيسية والمكونات الكاملة             */
         /* -------------------------------------------------- */
         .main-content {
-            flex: 1; padding: 100px 30px 50px 30px;
-            box-sizing: border-box; max-width: 1200px; margin: 0 auto;
+            flex: 1; 
+            padding: 90px 20px 50px 20px;
+            box-sizing: border-box; 
+            max-width: 1200px; 
+            margin: 0 auto;
             width: 100%;
         }
 
         .promo-bar {
             background: linear-gradient(90deg, #991b1b, #dc2626, #991b1b);
-            color: #fff; text-align: center; padding: 12px 20px; border-radius: 14px;
-            font-weight: bold; font-size: 0.95rem; margin-bottom: 20px;
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;
+            color: #fff; 
+            text-align: center; 
+            padding: 12px 20px; 
+            border-radius: 14px;
+            font-weight: bold; 
+            font-size: 0.95rem; 
+            margin-bottom: 20px;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 15px;
             box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
         }
 
         .live-ticker {
-            background-color: var(--card-bg); border: 1px solid var(--border-color);
-            color: var(--primary-color); padding: 12px 20px; border-radius: 14px;
-            font-size: 0.9rem; margin-bottom: 25px; display: flex; align-items: center; gap: 12px;
-            overflow: hidden; white-space: nowrap; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            background-color: var(--card-bg); 
+            border: 1px solid var(--border-color);
+            color: var(--primary-color); 
+            padding: 12px 20px; 
+            border-radius: 14px;
+            font-size: 0.9rem; 
+            margin-bottom: 25px; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px;
+            overflow: hidden; 
+            white-space: nowrap; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         .live-ticker marquee { font-weight: bold; }
 
         .top-banner {
             background: linear-gradient(135deg, var(--card-bg), var(--sidebar-bg));
             border: 1px solid var(--primary-color);
-            color: var(--text-main); text-align: center; padding: 18px 25px;
-            border-radius: 16px; font-size: 0.95rem; font-weight: bold;
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 30px; box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            color: var(--text-main); 
+            text-align: center; 
+            padding: 18px 25px;
+            border-radius: 16px; 
+            font-size: 0.95rem; 
+            font-weight: bold;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            margin-bottom: 30px; 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
 
         .hero-section {
             background: linear-gradient(135deg, var(--card-bg), var(--bg-color));
             border: 1px solid var(--border-color);
-            border-radius: 22px; padding: 45px 30px; text-align: center;
-            margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border-radius: 22px; 
+            padding: 40px 20px; 
+            text-align: center;
+            margin-bottom: 40px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
-        .hero-section h1 { margin: 0 0 12px; color: var(--primary-color); font-size: 2.3rem; }
-        .hero-section p { color: var(--text-muted); margin: 0 0 25px; font-size: 1.1rem; line-height: 1.6; }
+        .hero-section h1 { margin: 0 0 12px; color: var(--primary-color); font-size: 2rem; }
+        .hero-section p { color: var(--text-muted); margin: 0 0 25px; font-size: 1rem; line-height: 1.6; }
 
         /* -------------------------------------------------- */
-        /* 🌟 صندوق أوامر جيميني و ChatGPT المطور والفاخر       */
+        /* صندوق إدخال الأوامر المطور بأسلوب Gemini / ChatGPT  */
         /* -------------------------------------------------- */
         .gemini-prompt-box {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 28px;
-            padding: 24px;
+            border-radius: 24px;
+            padding: 20px;
             margin-bottom: 45px;
             box-shadow: 0 15px 40px rgba(0,0,0,0.5);
             transition: border-color 0.3s;
@@ -224,32 +302,32 @@
 
         .gemini-textarea {
             width: 100%; background: transparent; border: none;
-            color: var(--text-main); font-size: 1.1rem; resize: none;
-            outline: none; min-height: 100px; font-family: inherit; line-height: 1.6;
+            color: var(--text-main); font-size: 1.05rem; resize: none;
+            outline: none; min-height: 90px; font-family: inherit; line-height: 1.6;
             box-sizing: border-box;
         }
 
         .gemini-toolbar {
             display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px solid var(--border-color); padding-top: 16px;
-            margin-top: 15px; flex-wrap: wrap; gap: 15px;
+            border-top: 1px solid var(--border-color); padding-top: 15px;
+            margin-top: 12px; flex-wrap: wrap; gap: 12px;
         }
 
-        .gemini-tools-left { display: flex; gap: 12px; align-items: center; }
+        .gemini-tools-left { display: flex; gap: 10px; align-items: center; }
 
         .gemini-icon-btn {
             background: var(--sidebar-bg); border: 1px solid var(--border-color);
-            color: var(--text-main); width: 45px; height: 45px; border-radius: 50%;
+            color: var(--text-main); width: 42px; height: 42px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: 0.2s; font-size: 1.1rem;
+            cursor: pointer; transition: 0.2s; font-size: 1rem;
         }
         .gemini-icon-btn:hover { border-color: var(--primary-color); color: var(--primary-color); transform: scale(1.08); }
 
         .btn-gemini-send {
             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: #000; border: none; padding: 12px 30px; border-radius: 30px;
-            font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 1rem;
-            display: flex; align-items: center; gap: 10px;
+            color: #000; border: none; padding: 12px 25px; border-radius: 30px;
+            font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 0.95rem;
+            display: flex; align-items: center; gap: 8px;
             box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
         }
         .btn-gemini-send:hover { transform: scale(1.03); opacity: 0.95; }
@@ -264,46 +342,46 @@
         }
 
         /* -------------------------------------------------- */
-        /* الأدوات والخدمات الذكية                            */
+        /* الأدوات والخدمات الذكية (متجر، واتساب، فاحص جودة)   */
         /* -------------------------------------------------- */
         .services-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px; margin-bottom: 45px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px; margin-bottom: 45px;
         }
 
         .service-card {
             background-color: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 20px; padding: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            border-radius: 20px; padding: 22px; box-shadow: 0 8px 25px rgba(0,0,0,0.4);
             transition: transform 0.2s, border-color 0.2s;
         }
         .service-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
-        .service-card h3 { color: var(--primary-color); margin-top: 0; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
+        .service-card h3 { color: var(--primary-color); margin-top: 0; font-size: 1.15rem; display: flex; align-items: center; gap: 10px; }
 
         .live-preview-section {
             background-color: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 20px; padding: 30px; margin-bottom: 45px;
+            border-radius: 20px; padding: 25px; margin-bottom: 45px;
         }
         .preview-output {
             background: var(--sidebar-bg); border: 1px solid var(--border-color);
-            border-radius: 14px; padding: 20px; margin-top: 18px; color: var(--accent-gold);
-            font-size: 1.05rem; min-height: 60px; text-align: right; line-height: 1.6;
+            border-radius: 14px; padding: 18px; margin-top: 15px; color: var(--accent-gold);
+            font-size: 1rem; min-height: 60px; text-align: right; line-height: 1.6;
         }
 
-        .section-title { text-align: center; color: var(--text-main); margin: 55px 0 25px; font-size: 1.8rem; font-weight: bold; }
+        .section-title { text-align: center; color: var(--text-main); margin: 50px 0 25px; font-size: 1.6rem; font-weight: bold; }
 
         .before-after-box {
-            position: relative; width: 100%; height: 350px; border-radius: 22px;
+            position: relative; width: 100%; height: 320px; border-radius: 20px;
             overflow: hidden; border: 1px solid var(--border-color); margin-bottom: 45px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
-        .ba-img { position: absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:1.4rem; }
+        .ba-img { position: absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:1.3rem; }
         .ba-before { background: #111827; color: #ef4444; }
         .ba-after { background: linear-gradient(135deg, #451a03, #b45309); color: var(--primary-color); width: 50%; border-left: 3px solid var(--primary-color); overflow: hidden; }
         .ba-slider { position: absolute; top: 50%; left: 0; width: 100%; transform: translateY(-50%); z-index: 10; opacity: 0; cursor: pointer; }
 
         .grid-samples {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px; margin-bottom: 50px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px; margin-bottom: 50px;
         }
 
         .sample-card {
@@ -315,26 +393,26 @@
         .sample-card:hover { border-color: var(--primary-color); transform: translateY(-5px); }
 
         .sample-img {
-            width: 100%; height: 160px; background-color: var(--sidebar-bg);
+            width: 100%; height: 150px; background-color: var(--sidebar-bg);
             display: flex; align-items: center; justify-content: center;
-            color: var(--primary-color); font-size: 3rem;
+            color: var(--primary-color); font-size: 2.8rem;
         }
 
-        .sample-info { padding: 22px; }
-        .sample-info h4 { margin: 0 0 8px; font-size: 1.15rem; color: var(--text-main); }
-        .sample-info p { margin: 0; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+        .sample-info { padding: 20px; }
+        .sample-info h4 { margin: 0 0 8px; font-size: 1.1rem; color: var(--text-main); }
+        .sample-info p { margin: 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; }
 
         /* -------------------------------------------------- */
-        /* خطط الاشتراكات الخمس                              */
+        /* خطط الاشتراكات الخمس وتفعيل ون كاش الآلي          */
         /* -------------------------------------------------- */
         .pricing-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px; margin-bottom: 50px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px; margin-bottom: 50px;
         }
 
         .price-card {
             background-color: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 20px; padding: 35px 22px; text-align: center;
+            border-radius: 20px; padding: 30px 20px; text-align: center;
             position: relative; display: flex; flex-direction: column; justify-content: space-between;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4); transition: transform 0.2s;
         }
@@ -349,99 +427,99 @@
             content: '🔥 الأكثر طلباً';
             position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
             background-color: var(--discount-red); color: #fff; padding: 4px 16px;
-            border-radius: 20px; font-size: 0.85rem; font-weight: bold;
+            border-radius: 20px; font-size: 0.82rem; font-weight: bold;
         }
 
-        .old-price { text-decoration: line-through; color: var(--text-muted); font-size: 0.95rem; }
-        .price { font-size: 2.3rem; font-weight: bold; color: var(--primary-color); margin: 15px 0 20px; }
+        .old-price { text-decoration: line-through; color: var(--text-muted); font-size: 0.9rem; }
+        .price { font-size: 2.1rem; font-weight: bold; color: var(--primary-color); margin: 12px 0 18px; }
 
         .btn-pay-auto {
             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: #000; border: none; padding: 14px; border-radius: 12px;
-            font-weight: bold; cursor: pointer; width: 100%; margin-top: 20px;
-            transition: 0.2s; font-size: 1rem; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);
+            color: #000; border: none; padding: 13px; border-radius: 12px;
+            font-weight: bold; cursor: pointer; width: 100%; margin-top: 15px;
+            transition: 0.2s; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);
         }
         .btn-pay-auto:hover { opacity: 0.9; transform: scale(1.02); }
 
         /* -------------------------------------------------- */
-        /* الآراء والأسئلة الشائعة ون كاش                     */
+        /* الآراء والأسئلة الشائعة وحسابات ون كاش المعتمدة   */
         /* -------------------------------------------------- */
         .reviews-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px; margin-bottom: 50px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px; margin-bottom: 50px;
         }
 
         .review-card {
             background-color: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 18px; padding: 25px; font-size: 0.95rem; line-height: 1.6;
+            border-radius: 18px; padding: 22px; font-size: 0.92rem; line-height: 1.6;
             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
         }
-        .review-author { color: var(--primary-color); font-weight: bold; margin-top: 15px; }
+        .review-author { color: var(--primary-color); font-weight: bold; margin-top: 12px; }
 
         .faq-box {
             background-color: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 20px; padding: 30px; margin-bottom: 50px;
+            border-radius: 20px; padding: 25px; margin-bottom: 50px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
         }
-        .faq-item { margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 18px; }
+        .faq-item { margin-bottom: 18px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
         .faq-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .faq-question { font-weight: bold; color: var(--primary-color); cursor: pointer; font-size: 1.1rem; }
-        .faq-answer { color: var(--text-muted); font-size: 0.95rem; margin-top: 8px; line-height: 1.6; }
+        .faq-question { font-weight: bold; color: var(--primary-color); cursor: pointer; font-size: 1.05rem; }
+        .faq-answer { color: var(--text-muted); font-size: 0.92rem; margin-top: 8px; line-height: 1.6; }
 
         .payment-box {
             background-color: var(--sidebar-bg); border: 1px solid var(--border-color);
-            border-radius: 22px; padding: 40px; text-align: center; margin-top: 50px;
+            border-radius: 22px; padding: 35px 20px; text-align: center; margin-top: 40px;
             box-shadow: 0 10px 35px rgba(0,0,0,0.4);
         }
 
         .pay-row {
             display: flex; justify-content: center; align-items: center;
-            gap: 20px; margin: 18px 0; flex-wrap: wrap;
+            gap: 15px; margin: 15px 0; flex-wrap: wrap;
         }
 
         .pay-no {
-            font-size: 1.35rem; color: var(--accent-blue); font-weight: bold;
-            background: var(--card-bg); padding: 12px 25px; border-radius: 12px;
+            font-size: 1.25rem; color: var(--accent-blue); font-weight: bold;
+            background: var(--card-bg); padding: 10px 20px; border-radius: 12px;
             border: 1px solid var(--border-color); letter-spacing: 1px;
         }
 
         .btn-copy {
             background-color: var(--primary-color); color: #000;
-            border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold;
+            border: none; padding: 10px 18px; border-radius: 10px; cursor: pointer; font-weight: bold;
             transition: 0.2s;
         }
         .btn-copy:hover { opacity: 0.9; }
 
         .upload-receipt-box {
             background-color: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 18px; padding: 30px; text-align: center; margin-top: 30px;
+            border-radius: 18px; padding: 25px; text-align: center; margin-top: 25px;
         }
 
         .whatsapp-float {
-            position: fixed; bottom: 30px; left: 30px;
-            background-color: #25d366; color: #fff; width: 60px; height: 60px;
+            position: fixed; bottom: 25px; left: 25px;
+            background-color: #25d366; color: #fff; width: 55px; height: 55px;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 2rem; box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            font-size: 1.8rem; box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
             z-index: 999; text-decoration: none; transition: 0.3s;
         }
         .whatsapp-float:hover { transform: scale(1.1); }
 
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center;
+            background-color: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: center;
         }
         .modal-content {
-            background-color: var(--card-bg); padding: 35px; border-radius: 20px;
-            width: 90%; max-width: 420px; border: 1px solid var(--border-color); position: relative;
+            background-color: var(--card-bg); padding: 30px; border-radius: 20px;
+            width: 90%; max-width: 400px; border: 1px solid var(--border-color); position: relative;
             box-shadow: 0 15px 40px rgba(0,0,0,0.6);
         }
-        .close-btn { position: absolute; top: 15px; left: 20px; color: var(--text-muted); font-size: 1.6rem; cursor: pointer; }
+        .close-btn { position: absolute; top: 15px; left: 20px; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
 
         footer {
-            text-align: center; padding: 40px; background-color: var(--sidebar-bg);
-            color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border-color); margin-top: 60px;
+            text-align: center; padding: 35px; background-color: var(--sidebar-bg);
+            color: var(--text-muted); font-size: 0.88rem; border-top: 1px solid var(--border-color); margin-top: 50px;
         }
-        footer a { color: var(--primary-color); text-decoration: none; margin: 0 12px; cursor: pointer; }
+        footer a { color: var(--primary-color); text-decoration: none; margin: 0 10px; cursor: pointer; }
     </style>
 </head>
 <body onmouseleave="showExitPopup()">
@@ -477,7 +555,7 @@
         </div>
     </header>
 
-    <!-- القائمة الجانبية المخفية تماماً -->
+    <!-- القائمة الجانبية المخفية تماماً والمنظمة -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
     <div class="sidebar" id="sidebar">
         <div>
@@ -786,8 +864,10 @@
         }
 
         function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
-            document.getElementById('sidebarOverlay').classList.toggle('active');
+            var sb = document.getElementById('sidebar');
+            var overlay = document.getElementById('sidebarOverlay');
+            sb.classList.toggle('active');
+            overlay.classList.toggle('active');
         }
 
         function openAuthModal() { document.getElementById('authModal').style.display = 'flex'; }
@@ -880,4 +960,3 @@
     </script>
 </body>
 </html>
-

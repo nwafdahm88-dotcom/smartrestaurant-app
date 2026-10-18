@@ -43,36 +43,74 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* الهيدر العلوي للجوال لضمان ظهور زر القائمة بشكل ممتاز */
-        .mobile-header {
-            display: none;
+        /* -------------------------------------------------- */
+        /* الهيدر العلوي بنمط جيميني و شات جي بي تي الاحترافي */
+        /* -------------------------------------------------- */
+        .top-gemini-header {
             position: fixed;
             top: 0; right: 0; left: 0;
-            height: 65px;
+            height: 70px;
             background-color: var(--sidebar-bg);
             border-bottom: 1px solid var(--border-color);
-            padding: 0 20px;
+            display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 0 25px;
             z-index: 1000;
         }
 
-        .menu-toggle-btn {
+        .header-left-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-hamburger {
             background: var(--card-bg);
             border: 1px solid var(--primary-color);
             color: var(--primary-color);
-            padding: 8px 16px;
-            border-radius: 10px;
             font-size: 1.2rem;
             cursor: pointer;
+            padding: 9px 16px;
+            border-radius: 12px;
+            transition: 0.2s;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             font-weight: bold;
         }
+        .menu-hamburger:hover { opacity: 0.9; transform: scale(1.02); }
 
+        .app-title-badge {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+        }
+
+        .header-right-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .control-btn {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            color: var(--text-main); padding: 8px 16px; border-radius: 20px;
+            cursor: pointer; font-size: 0.85rem; font-weight: bold; display: flex; align-items: center; gap: 8px;
+            transition: 0.2s;
+        }
+        .control-btn:hover { border-color: var(--primary-color); color: var(--primary-color); }
+
+        /* -------------------------------------------------- */
+        /* القائمة الجانبية المخفية تماماً (Off-Canvas)       */
+        /* -------------------------------------------------- */
         .sidebar {
-            width: 280px;
+            width: 310px;
             background-color: var(--sidebar-bg);
             border-left: 1px solid var(--border-color);
             display: flex;
@@ -82,24 +120,23 @@
             box-sizing: border-box;
             position: fixed;
             top: 0; bottom: 0; right: 0;
-            z-index: 1100;
+            z-index: 1200;
             transition: transform 0.3s ease;
             transform: translateX(100%);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
         }
+        .sidebar.active { transform: translateX(0); }
 
-        .sidebar.active {
-            transform: translateX(0);
+        .sidebar-overlay {
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0,0,0,0.75); z-index: 1100;
+            backdrop-filter: blur(4px);
         }
+        .sidebar-overlay.active { display: block; }
 
         .brand-logo {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 30px;
-            text-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+            font-size: 1.3rem; font-weight: bold; color: var(--primary-color);
+            display: flex; align-items: center; gap: 12px; margin-bottom: 30px;
         }
 
         .menu-group { margin-bottom: 25px; }
@@ -108,47 +145,38 @@
         .menu-item {
             display: flex; align-items: center; gap: 14px;
             padding: 12px 14px; color: var(--text-main);
-            text-decoration: none; border-radius: 10px; font-size: 0.95rem;
+            text-decoration: none; border-radius: 12px; font-size: 0.95rem;
             transition: 0.2s; margin-bottom: 6px; cursor: pointer;
         }
         .menu-item:hover, .menu-item.active { background-color: var(--card-bg); color: var(--primary-color); border: 1px solid var(--border-color); }
 
         .user-profile {
             background-color: var(--card-bg);
-            padding: 15px; border-radius: 12px;
+            padding: 15px; border-radius: 14px;
             border: 1px solid var(--border-color);
             display: flex; align-items: center; gap: 12px; font-size: 0.85rem;
             cursor: pointer;
         }
 
         .user-avatar {
-            width: 40px; height: 40px;
+            width: 42px; height: 42px;
             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             color: #000; font-weight: bold; font-size: 1.1rem;
         }
 
+        /* -------------------------------------------------- */
+        /* منطقة المحتوى الرئيسية                            */
+        /* -------------------------------------------------- */
         .main-content {
-            margin-right: 280px; flex: 1; padding: 40px;
-            box-sizing: border-box; max-width: 1200px;
-            transition: margin 0.3s ease;
+            flex: 1; padding: 100px 30px 50px 30px;
+            box-sizing: border-box; max-width: 1200px; margin: 0 auto;
+            width: 100%;
         }
-
-        .top-controls {
-            display: flex; justify-content: flex-end; gap: 12px; margin-bottom: 20px;
-        }
-
-        .control-btn {
-            background: var(--card-bg); border: 1px solid var(--border-color);
-            color: var(--text-main); padding: 8px 18px; border-radius: 25px;
-            cursor: pointer; font-size: 0.85rem; font-weight: bold; display: flex; align-items: center; gap: 8px;
-            transition: 0.2s;
-        }
-        .control-btn:hover { border-color: var(--primary-color); color: var(--primary-color); }
 
         .promo-bar {
             background: linear-gradient(90deg, #991b1b, #dc2626, #991b1b);
-            color: #fff; text-align: center; padding: 12px 20px; border-radius: 12px;
+            color: #fff; text-align: center; padding: 12px 20px; border-radius: 14px;
             font-weight: bold; font-size: 0.95rem; margin-bottom: 20px;
             display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;
             box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
@@ -156,7 +184,7 @@
 
         .live-ticker {
             background-color: var(--card-bg); border: 1px solid var(--border-color);
-            color: var(--primary-color); padding: 12px 20px; border-radius: 12px;
+            color: var(--primary-color); padding: 12px 20px; border-radius: 14px;
             font-size: 0.9rem; margin-bottom: 25px; display: flex; align-items: center; gap: 12px;
             overflow: hidden; white-space: nowrap; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
@@ -174,33 +202,22 @@
         .hero-section {
             background: linear-gradient(135deg, var(--card-bg), var(--bg-color));
             border: 1px solid var(--border-color);
-            border-radius: 20px; padding: 40px; text-align: center;
+            border-radius: 22px; padding: 45px 30px; text-align: center;
             margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
-        .hero-section h2 { margin: 0 0 12px; color: var(--primary-color); font-size: 2.2rem; }
+        .hero-section h1 { margin: 0 0 12px; color: var(--primary-color); font-size: 2.3rem; }
         .hero-section p { color: var(--text-muted); margin: 0 0 25px; font-size: 1.1rem; line-height: 1.6; }
 
-        .services-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px; margin-bottom: 40px;
-        }
-
-        .service-card {
-            background-color: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 18px; padding: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-            transition: transform 0.2s, border-color 0.2s;
-        }
-        .service-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
-        .service-card h3 { color: var(--primary-color); margin-top: 0; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
-
-        /* صندوق أوامر جيميني الملكي المتطور (كتابة + صوت + صور) في الوسط */
+        /* -------------------------------------------------- */
+        /* 🌟 صندوق أوامر جيميني و ChatGPT المطور والفاخر       */
+        /* -------------------------------------------------- */
         .gemini-prompt-box {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 25px;
+            border-radius: 28px;
+            padding: 24px;
             margin-bottom: 45px;
-            box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
             transition: border-color 0.3s;
         }
         .gemini-prompt-box:focus-within { border-color: var(--primary-color); }
@@ -209,11 +226,12 @@
             width: 100%; background: transparent; border: none;
             color: var(--text-main); font-size: 1.1rem; resize: none;
             outline: none; min-height: 100px; font-family: inherit; line-height: 1.6;
+            box-sizing: border-box;
         }
 
         .gemini-toolbar {
             display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px solid var(--border-color); padding-top: 18px;
+            border-top: 1px solid var(--border-color); padding-top: 16px;
             margin-top: 15px; flex-wrap: wrap; gap: 15px;
         }
 
@@ -225,7 +243,7 @@
             display: flex; align-items: center; justify-content: center;
             cursor: pointer; transition: 0.2s; font-size: 1.1rem;
         }
-        .gemini-icon-btn:hover { border-color: var(--primary-color); color: var(--primary-color); transform: scale(1.05); }
+        .gemini-icon-btn:hover { border-color: var(--primary-color); color: var(--primary-color); transform: scale(1.08); }
 
         .btn-gemini-send {
             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
@@ -234,21 +252,47 @@
             display: flex; align-items: center; gap: 10px;
             box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
         }
-        .btn-gemini-send:hover { transform: scale(1.02); opacity: 0.95; }
+        .btn-gemini-send:hover { transform: scale(1.03); opacity: 0.95; }
 
         .progress-bar-box {
             display: none; margin-top: 20px; background-color: var(--sidebar-bg);
-            border-radius: 12px; padding: 15px; border: 1px solid var(--border-color);
+            border-radius: 14px; padding: 18px; border: 1px solid var(--border-color);
         }
         .progress-bar-fill {
             height: 10px; background: linear-gradient(90deg, var(--primary-color), var(--accent-gold));
             width: 0%; border-radius: 6px; transition: width 0.3s;
         }
 
+        /* -------------------------------------------------- */
+        /* الأدوات والخدمات الذكية                            */
+        /* -------------------------------------------------- */
+        .services-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px; margin-bottom: 45px;
+        }
+
+        .service-card {
+            background-color: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 20px; padding: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .service-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
+        .service-card h3 { color: var(--primary-color); margin-top: 0; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
+
+        .live-preview-section {
+            background-color: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 20px; padding: 30px; margin-bottom: 45px;
+        }
+        .preview-output {
+            background: var(--sidebar-bg); border: 1px solid var(--border-color);
+            border-radius: 14px; padding: 20px; margin-top: 18px; color: var(--accent-gold);
+            font-size: 1.05rem; min-height: 60px; text-align: right; line-height: 1.6;
+        }
+
         .section-title { text-align: center; color: var(--text-main); margin: 55px 0 25px; font-size: 1.8rem; font-weight: bold; }
 
         .before-after-box {
-            position: relative; width: 100%; height: 340px; border-radius: 20px;
+            position: relative; width: 100%; height: 350px; border-radius: 22px;
             overflow: hidden; border: 1px solid var(--border-color); margin-bottom: 45px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
@@ -280,8 +324,11 @@
         .sample-info h4 { margin: 0 0 8px; font-size: 1.15rem; color: var(--text-main); }
         .sample-info p { margin: 0; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
 
+        /* -------------------------------------------------- */
+        /* خطط الاشتراكات الخمس                              */
+        /* -------------------------------------------------- */
         .pricing-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 25px; margin-bottom: 50px;
         }
 
@@ -316,6 +363,9 @@
         }
         .btn-pay-auto:hover { opacity: 0.9; transform: scale(1.02); }
 
+        /* -------------------------------------------------- */
+        /* الآراء والأسئلة الشائعة ون كاش                     */
+        /* -------------------------------------------------- */
         .reviews-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px; margin-bottom: 50px;
@@ -330,7 +380,7 @@
 
         .faq-box {
             background-color: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 18px; padding: 30px; margin-bottom: 50px;
+            border-radius: 20px; padding: 30px; margin-bottom: 50px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
         }
         .faq-item { margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 18px; }
@@ -340,7 +390,7 @@
 
         .payment-box {
             background-color: var(--sidebar-bg); border: 1px solid var(--border-color);
-            border-radius: 20px; padding: 40px; text-align: center; margin-top: 50px;
+            border-radius: 22px; padding: 40px; text-align: center; margin-top: 50px;
             box-shadow: 0 10px 35px rgba(0,0,0,0.4);
         }
 
@@ -386,36 +436,22 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.6);
         }
         .close-btn { position: absolute; top: 15px; left: 20px; color: var(--text-muted); font-size: 1.6rem; cursor: pointer; }
-        .form-group { margin-bottom: 20px; text-align: right; }
-        .form-group label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 0.95rem; }
-        .form-group input {
-            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--border-color);
-            background-color: var(--sidebar-bg); color: #fff; box-sizing: border-box; font-size: 1rem;
-        }
-
-        .sidebar-overlay {
-            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0,0,0,0.7); z-index: 1050;
-        }
 
         footer {
             text-align: center; padding: 40px; background-color: var(--sidebar-bg);
             color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border-color); margin-top: 60px;
         }
         footer a { color: var(--primary-color); text-decoration: none; margin: 0 12px; cursor: pointer; }
-
-        @media (max-width: 768px) {
-            .mobile-header { display: flex; }
-            .main-content { margin-right: 0; padding: 85px 20px 40px 20px; }
-        }
     </style>
 </head>
 <body onmouseleave="showExitPopup()">
 
+    <!-- زر واتساب العائم -->
     <a href="https://wa.me/967738693366?text=مرحباً،%20أود%20الاشتراك%20في%20استوديو%20داهم%20لتصميم%20الإعلانات%20بالذكاء%20الاصطناعي" target="_blank" class="whatsapp-float" title="تواصل واتساب المباشر">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
+    <!-- نافذة العروض الخروجية -->
     <div id="exitModal" class="modal">
         <div class="modal-content" style="text-align:center;">
             <span class="close-btn" onclick="document.getElementById('exitModal').style.display='none'">&times;</span>
@@ -425,89 +461,57 @@
         </div>
     </div>
 
-    <!-- هيدر الموبايل مع زر القائمة (☰) الواضح -->
-    <div class="mobile-header">
-        <div class="brand-logo" style="margin-bottom:0; font-size:1.1rem;">
-            <i class="fa-solid fa-wand-magic-sparkles"></i> استوديو داهم AI
+    <!-- الهيدر العلوي بنمط جيميني مع زر القائمة الرئيسي -->
+    <header class="top-gemini-header">
+        <div class="header-left-group">
+            <button class="menu-hamburger" onclick="toggleSidebar()">
+                <i class="fa-solid fa-bars"></i> القائمة
+            </button>
+            <div class="app-title-badge">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> استوديو داهم AI
+            </div>
         </div>
-        <button class="menu-toggle-btn" onclick="toggleSidebar()">
-            <i class="fa-solid fa-bars"></i> القائمة
-        </button>
-    </div>
+        <div class="header-right-group">
+            <button class="control-btn" onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke"></i> <span id="btnThemeText">المظهر</span></button>
+            <button class="control-btn" onclick="openAuthModal()"><i class="fa-solid fa-user-lock"></i> الدخول</button>
+        </div>
+    </header>
 
+    <!-- القائمة الجانبية المخفية تماماً -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-
-    <div id="authModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeAuthModal()">&times;</span>
-            <h2 style="text-align: center; color: var(--primary-color); margin-top:0;" id="txtAuthTitle">تسجيل الدخول | استوديو داهم AI</h2>
-            <form onsubmit="event.preventDefault(); alert('تم التحقق من بياناتك بحماية أمنية عالية، أهلاً بك في استوديو داهم لتصميم الإعلانات!'); closeAuthModal();">
-                <div class="form-group">
-                    <label id="txtAuthUser">البريد الإلكتروني أو رقم الهاتف</label>
-                    <input type="text" required placeholder="ادخل بيانات حساب مطعمك">
-                </div>
-                <div class="form-group">
-                    <label id="txtAuthPass">كلمة المرور المؤمّنة</label>
-                    <input type="password" required placeholder="••••••••">
-                </div>
-                <button type="submit" class="btn-pay-auto" style="margin-top: 10px;" id="txtAuthBtn">دخول آمن</button>
-            </form>
-        </div>
-    </div>
-
-    <div id="policyModal" class="modal">
-        <div class="modal-content" style="max-width: 500px; max-height: 80vh; overflow-y: auto;">
-            <span class="close-btn" onclick="closePolicyModal()">&times;</span>
-            <h2 style="color: var(--primary-color); margin-top:0;">شروط الاستخدام والخصوصية | استوديو داهم AI</h2>
-            <p style="color: var(--text-muted); font-size: 0.95rem; text-align: right; line-height: 1.7;">
-                1. <strong>حماية البيانات:</strong> نلتزم بحماية سرية التصاميم، قوائم الطعام، والأسعار الخاصة بمطعمك وعدم مشاركتها مع أي طرف ثالث.<br><br>
-                2. <strong>الاشتراكات والتفعيل الآلي:</strong> تُفعّل الاشتراكات فور التحقق من عملية السداد عبر بوابة ون كاش أو الحسابات المعتمدة.<br><br>
-                3. <strong>أمن الاستوديو:</strong> تُطبق أعلى معايير التشفير والأمان لضمان سلامة بيانات المشتركين على خوادم الاستوديو.
-            </p>
-            <button class="btn-pay-auto" onclick="closePolicyModal()">فهمت وموافق</button>
-        </div>
-    </div>
-
     <div class="sidebar" id="sidebar">
         <div>
             <div class="brand-logo">
                 <i class="fa-solid fa-wand-magic-sparkles"></i> استوديو داهم AI
             </div>
             <div class="menu-group">
-                <div class="menu-title" id="txtGroup1">استكشف الخدمات</div>
-                <div class="menu-item active" onclick="toggleSidebar()"><i class="fa-solid fa-gamepad"></i> <span id="txtM1">استوديو الإعلانات والتصاميم</span></div>
-                <div class="menu-item" onclick="toggleSidebar()"><i class="fa-solid fa-clock-rotate-left"></i> <span id="txtM2">السجل والأمان</span></div>
+                <div class="menu-title">استكشف الخدمات</div>
+                <div class="menu-item active" onclick="toggleSidebar()"><i class="fa-solid fa-gamepad"></i> الاستوديو الرئيسي</div>
+                <div class="menu-item" onclick="document.getElementById('pricing').scrollIntoView({behavior: 'smooth'}); toggleSidebar();"><i class="fa-solid fa-crown"></i> باقات الاشتراكات</div>
+                <div class="menu-item" onclick="document.getElementById('paymentSection').scrollIntoView({behavior: 'smooth'}); toggleSidebar();"><i class="fa-solid fa-wallet"></i> ون كاش وحسابات السداد</div>
             </div>
             <div class="menu-group">
-                <div class="menu-title" id="txtGroup2">البناء والتصاميم</div>
-                <div class="menu-item" onclick="toggleSidebar()"><i class="fa-solid fa-plus"></i> <span id="txtM3">توليد إعلان بالـ AI</span></div>
-                <div class="menu-item" onclick="toggleSidebar()"><i class="fa-solid fa-utensils"></i> <span id="txtM4">وجبات الكيتو والدايت</span></div>
-                <div class="menu-item" onclick="toggleSidebar()"><i class="fa-solid fa-qrcode"></i> <span id="txtM5">قائمة QR التفاعلية</span></div>
-            </div>
-            <div class="menu-group">
-                <div class="menu-title" id="txtGroup3">الحساب والأمان</div>
-                <div class="menu-item" onclick="openAuthModal(); toggleSidebar();"><i class="fa-solid fa-user-lock"></i> <span id="txtM6">تسجيل الدخول</span></div>
+                <div class="menu-title">الحساب والأمان</div>
+                <div class="menu-item" onclick="openAuthModal(); toggleSidebar();"><i class="fa-solid fa-user-lock"></i> تسجيل الدخول</div>
+                <div class="menu-item" onclick="toggleTheme(); toggleSidebar();"><i class="fa-solid fa-moon"></i> المظهر الليلي / المضيء</div>
+                <div class="menu-item" onclick="openPolicyModal(); toggleSidebar();"><i class="fa-solid fa-shield-halved"></i> سياسة الخصوصية</div>
             </div>
         </div>
         <div class="user-profile" onclick="openAuthModal(); toggleSidebar();">
             <div class="user-avatar">D</div>
             <div>
-                <div style="font-weight:bold; color:var(--text-main);" id="txtUserAcc">حساب داهم المحمي</div>
+                <div style="font-weight:bold; color:var(--text-main);">حساب داهم المحمي</div>
                 <div style="font-size:0.75rem; color:var(--accent-gold);">● اتصال SSL مشفّر</div>
             </div>
         </div>
     </div>
 
+    <!-- المحتوى الرئيسي للمنصة -->
     <div class="main-content">
 
-        <div class="top-controls">
-            <button class="control-btn" onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke"></i> <span id="btnThemeText">المظهر المضيء</span></button>
-            <button class="control-btn" onclick="toggleLang()"><i class="fa-solid fa-globe"></i> <span id="btnLangText">English</span></button>
-        </div>
-
         <div class="promo-bar">
-            <span id="txtPromoMsg">🔥 عرض خاص من استوديو داهم AI: خصم 40% على جميع باقات الاشتراكات اليوم!</span>
-            <span>⏱️ <span id="txtTimerText">ينتهي العرض خلال:</span> <span id="timer" style="color:#fef08a;">04:59:59</span></span>
+            <span>🔥 عرض خاص من استوديو داهم AI: خصم 40% على جميع باقات الاشتراكات اليوم!</span>
+            <span>⏱️ ينتهي العرض خلال: <span id="timer" style="color:#fef08a;">04:59:59</span></span>
         </div>
 
         <div class="live-ticker">
@@ -518,49 +522,29 @@
         </div>
 
         <div class="top-banner">
-            <span id="txtBannerMsg">🛡️ نظام حماية استوديو داهم AI مشفّر ومفعل 24/7 لخدمة المطاعم والمحلات</span>
-            <button class="btn-copy" onclick="openAuthModal()" id="txtLoginBtnBanner">تسجيل الدخول</button>
+            <span>🛡️ نظام حماية استوديو داهم AI مشفّر ومفعل 24/7 لخدمة المطاعم والمحلات</span>
+            <button class="btn-copy" onclick="openAuthModal()">تسجيل الدخول</button>
         </div>
 
         <div class="hero-section">
-            <h2 id="txtBannerTitle">استوديو داهم لتصميم الإعلانات بالذكاء الاصطناعي</h2>
-            <p id="txtBannerSub">منظومة ذكاء اصطناعي متطورة لتوليد الفيديوهات الإعلانية والتصاميم الاحترافية للمطاعم والمحلات بضغطة زر وبدون خبرة سابقة.</p>
-            <button class="btn-generate" onclick="document.getElementById('pricing').scrollIntoView({behavior: 'smooth'})" id="txtBannerBtn" style="padding: 12px 30px; border-radius: 12px; font-weight: bold; background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); color: #000; border: none; cursor: pointer; font-size: 1rem;">اختر خطة الاشتراك الآمن</button>
+            <h1>لنبدأ، يا أسطورة</h1>
+            <p>منظومة ذكاء اصطناعي متطورة لتوليد الفيديوهات الإعلانية والتصاميم الاحترافية للمطاعم والمحلات بضغطة زر وبدون خبرة سابقة.</p>
+            <button class="btn-pay-auto" style="max-width:280px; margin:0 auto;" onclick="document.getElementById('pricing').scrollIntoView({behavior: 'smooth'})">اختر خطة الاشتراك الآمن</button>
         </div>
 
-        <div class="services-grid">
-            <div class="service-card">
-                <h3><i class="fa-solid fa-store" style="color:var(--accent-blue);"></i> متجر القوالب الفورية (AI Shop)</h3>
-                <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.6;">اشترِ تصاميم وفيديوهات جاهزة بضغطة زر وبدون انتظار!</p>
-                <button class="btn-pay-auto" style="background:var(--accent-blue); color:#fff;" onclick="buyInstantTemplate()">شراء قالب جاهز (2,000 ر.ي)</button>
-                <div id="shopResult" style="font-size:0.85rem; color:var(--accent-gold); margin-top:10px; text-align:center;"></div>
-            </div>
-
-            <div class="service-card">
-                <h3><i class="fa-brands fa-whatsapp" style="color:#25d366;"></i> مساعد واتساب التسويقي</h3>
-                <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.6;">ولد رسالة عرض غداء قوية وأرسل لزبائن مطعمك فوراً.</p>
-                <button class="btn-pay-auto" style="background:#25d366; color:#fff;" onclick="generateWhatsappBroadcast()">توليد رسالة الواتساب</button>
-                <div id="whatsappResult" style="font-size:0.85rem; color:#fef08a; margin-top:10px; text-align:center;"></div>
-            </div>
-
-            <div class="service-card">
-                <h3><i class="fa-solid fa-award" style="color:var(--primary-color);"></i> فاحص جودة الإعلان AI</h3>
-                <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.6;">افحص إعلانك وتأكد من حصوله على تقييم 100/100 لجذب الزبائن.</p>
-                <button class="btn-pay-auto" style="margin-top:20px;" onclick="checkAdQualityScore()">افحص جودة إعلاني الآن</button>
-                <div id="qualityResult" style="font-size:0.85rem; color:var(--accent-gold); margin-top:10px; text-align:center; font-weight:bold;"></div>
-            </div>
-        </div>
-
-        <!-- 🌟 صندوق أوامر جيميني المتطور (صوت + كتابة + صور) في الوسط -->
+        <!-- 🌟 صندوق إدخال الأوامر المطور بأسلوب Gemini / ChatGPT (صوت + كتابة + صور) -->
         <div class="gemini-prompt-box">
-            <textarea id="promptText" class="gemini-textarea" placeholder="اكتب وصف إعلانك المطلوب أو اضغط زر الميكروفون للتحدث الصوتي (مثال: صمم فيديو سينمائي مذهل لوجبة البرجر المقرمش)..."></textarea>
+            <textarea id="promptText" class="gemini-textarea" placeholder="اسأل استوديو داهم AI أو صف إعلانك المطلوب (مثال: صمم فيديو سينمائي مذهل لوجبة البرجر المقرمش)..."></textarea>
             <div class="gemini-toolbar">
                 <div class="gemini-tools-left">
-                    <button class="gemini-icon-btn" onclick="document.getElementById('attachFile').click()" title="إرفاق صور أو ملفات">
-                        <i class="fa-solid fa-image"></i>
+                    <button class="gemini-icon-btn" onclick="document.getElementById('attachFile').click()" title="إرفاق صور أو ملفات (+)">
+                        <i class="fa-solid fa-plus"></i>
                     </button>
                     <button class="gemini-icon-btn" onclick="simulateVoiceInput()" title="تسجيل صوتي مباشر">
                         <i class="fa-solid fa-microphone"></i>
+                    </button>
+                    <button class="gemini-icon-btn" title="موجات صوتية">
+                        <i class="fa-solid fa-waveform"></i>
                     </button>
                     <input type="file" id="attachFile" accept="image/*" style="display:none;" onchange="alert('✅ تم إرفاق الصورة بنجاح وجاهزة للمعالجة بالـ AI!');">
                 </div>
@@ -575,6 +559,38 @@
             </div>
         </div>
 
+        <!-- خدمات واستثمارات الاستوديو -->
+        <div class="services-grid">
+            <div class="service-card">
+                <h3><i class="fa-solid fa-store" style="color:var(--accent-blue);"></i> متجر القوالب الفورية (AI Shop)</h3>
+                <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.6;">اشترِ تصاميم وفيديوهات جاهزة بضغطة زر وبدون انتظار!</p>
+                <button class="btn-pay-auto" style="background:var(--accent-blue); color:#fff;" onclick="alert('جاري تحويلك لبوابة ون كاش لشراء القالب الفوري بمبلغ 2,000 ريال لرقم التاجر: 194458628')">شراء قالب جاهز (2,000 ر.ي)</button>
+            </div>
+
+            <div class="service-card">
+                <h3><i class="fa-brands fa-whatsapp" style="color:#25d366;"></i> مساعد واتساب التسويقي</h3>
+                <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.6;">ولد رسالة عرض غداء قوية وأرسل لزبائن مطعمك فوراً.</p>
+                <button class="btn-pay-auto" style="background:#25d366; color:#fff;" onclick="alert('🔥 تم توليد رسالة واتساب: (عروض الغداء الخطيرة اليوم في مطعمنا! خصم خاص 20% لأول 10 متصلين. اطلب وجبتك الآن 🍔)')">توليد رسالة الواتساب</button>
+            </div>
+
+            <div class="service-card">
+                <h3><i class="fa-solid fa-award" style="color:var(--primary-color);"></i> فاحص جودة الإعلان AI</h3>
+                <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.6;">افحص إعلانك وتأكد من حصوله على تقييم 100/100 لجذب الزبائن.</p>
+                <button class="btn-pay-auto" style="margin-top:20px;" onclick="alert('⭐ تقييم جودة الإعلان: 98/100 (ممتاز! جاهز لجذب مئات الزبائن)')">افحص جودة إعلاني الآن</button>
+            </div>
+        </div>
+
+        <!-- التجربة المباشرة لتوليد اسم الوجبة -->
+        <div class="live-preview-section">
+            <h3 style="color:var(--primary-color); margin-top:0;"><i class="fa-solid fa-wand-magic-sparkles"></i> جرب توليد وصف الوجبة السحري فوراً (تجربة مجانية)</h3>
+            <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.5;">اكتب اسم وجبتك واضغط توليد لترى كيف يكتب الذكاء الاصطناعي إعلاناً لجذب الزبائن:</p>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:15px;">
+                <input type="text" id="foodNameInput" placeholder="مثال: برجر دجاج مقرمش / مشويات مشكلة..." style="flex:1; padding:14px; border-radius:10px; border:1px solid var(--border-color); background:var(--sidebar-bg); color:#fff; min-width:220px; font-size:1rem;">
+                <button class="btn-copy" onclick="generateLivePreview()" style="padding:14px 25px;">توليد الوصف السحري</button>
+            </div>
+            <div class="preview-output" id="previewOutput">✨ سيظهر الوصف التسويقي الاحترافي هنا فور إدخال اسم الوجبة...</div>
+        </div>
+
         <h3 class="section-title">قوة التصميم بالذكاء الاصطناعي (قبل / بعد)</h3>
         <div class="before-after-box">
             <div class="ba-img ba-before">📸 صورة الوجبة العادية قبل المعالجة</div>
@@ -582,7 +598,7 @@
             <input type="range" min="0" max="100" value="50" class="ba-slider" oninput="document.getElementById('baAfter').style.width = this.value + '%'">
         </div>
 
-        <h3 class="section-title" id="txtSampleTitle">معاينة النماذج الحية والتصاميم الـ AI</h3>
+        <h3 class="section-title">معاينة النماذج الحية والتصاميم الـ AI</h3>
         <div class="grid-samples">
             <div class="sample-card">
                 <div class="sample-img"><i class="fa-solid fa-film"></i></div>
@@ -612,12 +628,12 @@
             </div>
         </div>
 
+        <!-- قسم الاشتراكات والخطط الخمس المكتملة -->
         <div class="pricing-section" id="pricing">
-            <h2 class="section-title" id="txtPriceTitle" style="margin-top:0;">خطط الاشتراكات والتفعيل المباشر</h2>
-            <p style="text-align:center; color:var(--text-muted); margin-bottom:35px;" id="txtPriceSub">اختر الخطة وسيقوم نظام ون كاش الآلي بتفعيل حسابك فور إتمام التحويل بكل أمان:</p>
+            <h2 class="section-title" style="margin-top:0;">خطط الاشتراكات والتفعيل المباشر</h2>
+            <p style="text-align:center; color:var(--text-muted); margin-bottom:35px;">اختر الخطة وسيقوم نظام ون كاش الآلي بتفعيل حسابك فور إتمام التحويل بكل أمان:</p>
 
             <div class="pricing-grid">
-                
                 <div class="price-card">
                     <div>
                         <h3>التجربة اليومية</h3>
@@ -665,18 +681,17 @@
                     </div>
                     <button class="btn-pay-auto" onclick="oneCashApiPay('VIP', 85000)">دفع آلي ون كاش</button>
                 </div>
-
             </div>
         </div>
 
         <h3 class="section-title">آراء أصحاب المطاعم الموثوقين</h3>
         <div class="reviews-grid">
             <div class="review-card">
-                <p>"استوديو داهم AI خرافي! تم توليد إعلان فيديو المشويات بالذكاء الاصطناعي ورفعه على السوشيال ميديا وارتفعت المبيعات فوراً بشكل مذهل."</p>
+                <p>"استوديو داهم AI خرافي! تم توليد إعلان فيديو المشويات بالذكاء الاصطناعي ورفعه على السوشيال ميديا وارتفعت المبيعات فوراً بشكل مذهل.[span_0](start_span)"[span_0](end_span)</p>
                 <div class="review-author">⭐ مطاعم الشيباني الحديث</div>
             </div>
             <div class="review-card">
-                <p>"قائمة QR السريعة مع قسم وجبات الكيتو وفرت علينا وقت طبع القوائم الورقية. خدمة ممتازة وفخمة جداً."</p>
+                <p>"قائمة QR السريعة مع قسم وجبات الكيتو وفرت علينا وقت طبع القوائم الورقية. خدمة ممتازة وفخمة جداً.[span_1](start_span)"[span_1](end_span)</p>
                 <div class="review-author">⭐ مدينة المشاوي</div>
             </div>
         </div>
@@ -685,38 +700,70 @@
         <div class="faq-box">
             <div class="faq-item">
                 <div class="faq-question">💡 كيف يتم تفعيل اشتراكي فور الدفع؟</div>
-                <div class="faq-answer">بمجرد التحويل عبر محفظة ون كاش أو الحساب المباشر، يقرأ النظام الآلي عملية الدفع ويفتح لك الاستوديو فوراً.</div>
+                <div class="faq-answer">بمجرد التحويل عبر محفظة ون كاش أو الحساب المباشر، يقرأ النظام الآلي عملية الدفع ويفتح لك الاستوديو فوراً.[span_2](start_span)[span_2](end_span)</div>
             </div>
             <div class="faq-item">
                 <div class="faq-question">🍔 هل المنصة تدعم وجبات الدايت والكيتو؟</div>
-                <div class="faq-answer">نعم، يقدم استوديو داهم خدمة مخصصة لتصميم وتنسيق قوائم وجبات صحية، كيتو، ودايت بدقة عالية بالذكاء الاصطناعي.</div>
+                <div class="faq-answer">نعم، يقدم استوديو داهم خدمة مخصصة لتصميم وتنسيق قوائم وجبات صحية، كيتو، ودايت بدقة عالية بالذكاء الاصطناعي.[span_3](start_span)[span_3](end_span)</div>
             </div>
         </div>
 
-        <div class="payment-box">
+        <!-- حسابات التاجر الرسمية ون كاش السريعة -->
+        <div class="payment-box" id="paymentSection">
             <h3 style="color:var(--text-main); margin-top:0; font-size:1.6rem;">حسابات التاجر الرسمية والنسخ السريع</h3>
             <p style="color:var(--text-muted); font-size:0.95rem;">يمكنك نسخ أرقام الحسابات المعتمدة مباشرة:</p>
             
             <div class="pay-row">
                 <span>💳 ون كاش (One Cash):</span>
-                <span class="pay-no">194458628</span>
+                <span class="pay-no">194458628</span>[span_4](start_span)[span_4](end_span)
                 <button class="btn-copy" onclick="navigator.clipboard.writeText('194458628'); alert('تم نسخ الرقم: 194458628 بنجاح!');">نسخ الرقم</button>
             </div>
 
             <div class="pay-row">
                 <span>💵 كاش / تحويل مباشر:</span>
-                <span class="pay-no">738693366</span>
+                <span class="pay-no">738693366</span>[span_5](start_span)[span_5](end_span)
                 <button class="btn-copy" onclick="navigator.clipboard.writeText('738693366'); alert('تم نسخ الرقم: 738693366 بنجاح!');">نسخ الرقم</button>
             </div>
 
             <div class="upload-receipt-box">
                 <h4 style="color:var(--primary-color); margin:0 0 12px; font-size:1.2rem;">إرسال أو رفع صورة إشعار التحويل السريع</h4>
-                <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px;">بعد إتمام السداد عبر ون كاش أو تحويل كاش، يمكنك رفع الإشعار للتفعيل الفوري:</p>
+                <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px;">بعد إتمام السداد عبر ون كاش أو تحويل كاش، يمكنك رفع الإشعار للتفعيل الفوري:</p>[span_6](start_span)[span_6](end_span)
                 <input type="file" id="receiptFile" accept="image/*" style="display:none;" onchange="alert('تم استلام صورة الإشعار بنجاح وجاري التحقق من عملية الدفع!');">
-                <button class="btn-copy" style="background:#38bdf8; padding:12px 24px; font-size:1rem;" onclick="document.getElementById('receiptFile').click();"><i class="fa-solid fa-upload"></i> رفع صورة سند السداد</button>
+                <button class="btn-copy" style="background:#38bdf8; padding:12px 24px; font-size:1rem;" onclick="document.getElementById('receiptFile').click();"><i class="fa-solid fa-upload"></i> رفع صورة سند السداد</button>[span_7](start_span)[span_7](end_span)
             </div>
         </div>
 
+    </div>
+
+    <!-- نافذة تسجيل الدخول -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAuthModal()">&times;</span>
+            <h3 style="color:var(--primary-color); text-align:center; margin-top:0;">تسجيل الدخول الآمن</h3>
+            <div style="margin-bottom:15px;">
+                <label style="font-size:0.9rem; color:var(--text-muted);">رقم الهاتف أو البريد الإلكتروني</label>
+                <input type="text" placeholder="ادخل بيانات حساب مطعمك" style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--border-color); background:var(--sidebar-bg); color:#fff; box-sizing:border-box; margin-top:8px;">
+            </div>
+            <div style="margin-bottom:15px;">
+                <label style="font-size:0.9rem; color:var(--text-muted);">كلمة المرور</label>
+                <input type="password" placeholder="••••••••" style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--border-color); background:var(--sidebar-bg); color:#fff; box-sizing:border-box; margin-top:8px;">
+            </div>
+            <button class="btn-pay-auto" onclick="alert('تم تسجيل الدخول بنجاح!'); closeAuthModal();">دخول آمن</button>
+        </div>
+    </div>
+
+    <!-- نافذة الشروط والخصوصية -->
+    <div id="policyModal" class="modal">
+        <div class="modal-content" style="max-width: 500px; max-height: 80vh; overflow-y: auto;">
+            <span class="close-btn" onclick="closePolicyModal()">&times;</span>
+            <h2 style="color: var(--primary-color); margin-top:0;">شروط الاستخدام والخصوصية | استوديو داهم AI</h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem; text-align: right; line-height: 1.7;">
+                1. <strong>حماية البيانات:</strong> نلتزم بحماية سرية التصاميم، قوائم الطعام، والأسعار الخاصة بمطعمك وعدم مشاركتها مع أي طرف ثالث.<br><br>
+                2. <strong>الاشتراكات والتفعيل الآلي:</strong> تُفعّل الاشتراكات فور التحقق من عملية السداد عبر بوابة ون كاش أو الحسابات المعتمدة.<br><br>
+                3. <strong>أمن الاستوديو:</strong> تُطبق أعلى معايير التشفير والأمان لضمان سلامة بيانات المشتركين على خوادم الاستوديو.
+            </p>
+            <button class="btn-pay-auto" onclick="closePolicyModal()">فهمت وموافق</button>
+        </div>
     </div>
 
     <footer>
@@ -728,14 +775,7 @@
     </footer>
 
     <script>
-        const ONECASH_CONFIG = {
-            merchantId: "194458628",
-            apiKey: "YOUR_ONECASH_API_KEY",
-            environment: "production"
-        };
-
         var isSubscribed = false;
-        var currentLang = 'ar';
         var exitShown = false;
 
         function showExitPopup() {
@@ -745,17 +785,16 @@
             }
         }
 
-        function buyInstantTemplate() {
-            alert("جاري تحويلك لبوابة ون كاش لشراء القالب الفوري بمبلغ 2,000 ريال لرقم التاجر: " + ONECASH_CONFIG.merchantId);
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
         }
 
-        function generateWhatsappBroadcast() {
-            alert("🔥 تم توليد رسالة واتساب: (عروض الغداء الخطيرة اليوم في مطعمنا! خصم خاص 20% لأول 10 متصلين. اطلب وجبتك الآن 🍔)");
-        }
+        function openAuthModal() { document.getElementById('authModal').style.display = 'flex'; }
+        function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
 
-        function checkAdQualityScore() {
-            alert("⭐ تقييم جودة الإعلان: 98/100 (ممتاز! جاهز لجذب مئات الزبائن)");
-        }
+        function openPolicyModal() { document.getElementById('policyModal').style.display = 'flex'; }
+        function closePolicyModal() { document.getElementById('policyModal').style.display = 'none'; }
 
         function simulateVoiceInput() {
             var st = document.getElementById('voiceStatus');
@@ -764,6 +803,19 @@
                 st.innerHTML = "✅ تم تحويل صوتك إلى نص بنجاح!";
                 document.getElementById('promptText').value = "إعلان ترويجي لفطائر اللحم والجبن الطازجة مع عرض خاص للزبائن";
             }, 1500);
+        }
+
+        function generateLivePreview() {
+            var food = document.getElementById('foodNameInput').value;
+            var out = document.getElementById('previewOutput');
+            if(!food) {
+                alert('يرجى كتابة اسم الوجبة أولاً!');
+                return;
+            }
+            out.innerHTML = "⏳ جاري التوليد بالذكاء الاصطناعي...";
+            setTimeout(function() {
+                out.innerHTML = "🔥 <strong>إعلان جاهز:</strong> استمتع بألذ طعم لـ (" + food + ") المصنوع خصيصاً بمكونات طازجة وجودة عالية تلبي طموحات ذائقتك! اطلبها الآن واجعل يومك مميزاً.";
+            }, 800);
         }
 
         function toggleTheme() {
@@ -776,41 +828,8 @@
             }
         }
 
-        function toggleLang() {
-            if(currentLang === 'ar') {
-                currentLang = 'en';
-                document.documentElement.dir = 'ltr';
-                document.documentElement.lang = 'en';
-                document.getElementById('btnLangText').textContent = 'عربي';
-                document.getElementById('txtBannerTitle').textContent = 'Dahm AI Ads Studio | AI Design Studio';
-                document.getElementById('txtBannerSub').textContent = 'Next-gen AI studio for generating promo videos and digital menus for restaurants.';
-                document.getElementById('txtGenBtn').innerHTML = '<i class="fa-solid fa-paper-plane"></i> Generate with AI';
-            } else {
-                currentLang = 'ar';
-                document.documentElement.dir = 'rtl';
-                document.documentElement.lang = 'ar';
-                document.getElementById('btnLangText').textContent = 'English';
-                document.getElementById('txtBannerTitle').textContent = 'استوديو داهم لتصميم الإعلانات بالذكاء الاصطناعي';
-                document.getElementById('txtBannerSub').textContent = 'منظومة ذكاء اصطناعي متطورة لتوليد الفيديوهات الإعلانية والتصاميم الاحترافية للمطاعم والمحلات.';
-                document.getElementById('txtGenBtn').innerHTML = '<i class="fa-solid fa-paper-plane"></i> توليد بالذكاء الاصطناعي';
-            }
-        }
-
-        function toggleSidebar() {
-            var sidebar = document.getElementById('sidebar');
-            var overlay = document.getElementById('sidebarOverlay');
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
-
-        function openAuthModal() { document.getElementById('authModal').style.display = 'flex'; }
-        function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
-
-        function openPolicyModal() { document.getElementById('policyModal').style.display = 'flex'; }
-        function closePolicyModal() { document.getElementById('policyModal').style.display = 'none'; }
-
         function oneCashApiPay(planName, amount) {
-            alert("جاري تشفير الاتصال والربط التلقائي ببوابة ون كاش للتاجر المؤمّن: " + ONECASH_CONFIG.merchantId);
+            alert("جاري تشفير الاتصال والربط التلقائي ببوابة ون كاش للتاجر: 194458628");
             setTimeout(function() {
                 isSubscribed = true;
                 alert("✅ تم تأمين واستلام مبلغ " + amount.toLocaleString() + " ريال بنجاح عبر ون كاش!\nتم تفعيل باقة (" + planName + ") بحسابك تلقائياً وبأمان.");
@@ -861,3 +880,4 @@
     </script>
 </body>
 </html>
+
